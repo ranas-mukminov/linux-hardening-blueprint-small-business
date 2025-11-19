@@ -1,0 +1,4 @@
+---
+# Convenience wrapper for server profile (default).
+# Run with: ansible-playbook ansible/playbooks/server.yml -i <inventory> -e linux_hardener_profile=server
+- import_playbook: site.yml

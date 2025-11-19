@@ -1,0 +1,67 @@
+---
+- name: Configure Debian security updates
+  when:
+    - ansible_facts['os_family'] == 'Debian'
+    - updates_enable_security
+  block:
+    - name: Ensure unattended-upgrades present
+      ansible.builtin.package:
+        name: unattended-upgrades
+        state: present
+
+    - name: Configure unattended upgrades
+      ansible.builtin.copy:
+        dest: /etc/apt/apt.conf.d/51-linux-harden.conf
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+          Unattended-Upgrade::Automatic-Reboot "{{ 'true' if updates_reboot_strategy != 'never' else 'false' }}";
+          Unattended-Upgrade::Automatic-Reboot-Time "{{ updates_timer_hour }}";
+          Unattended-Upgrade::Origins-Pattern {
+            "o=Debian,a=stable-security";
+            "o=Ubuntu,a={{ ansible_facts.get('lsb', {}).get('codename', 'jammy') }}-security";
+          };
+          Unattended-Upgrade::InstallOnShutdown "false";
+          Unattended-Upgrade::MinimalSteps "true";
+
+    - name: Enable unattended-upgrades timer
+      ansible.builtin.systemd:
+        name: unattended-upgrades.service
+        enabled: true
+        state: started
+
+- name: Configure RHEL security updates
+  when:
+    - ansible_facts['os_family'] == 'RedHat'
+    - updates_enable_security
+  block:
+    - name: Ensure dnf-automatic installed
+      ansible.builtin.package:
+        name: dnf-automatic
+        state: present
+
+    - name: Configure dnf-automatic
+      ansible.builtin.copy:
+        dest: /etc/dnf/automatic.conf
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+          [commands]
+          apply_updates = {{ 'yes' if updates_apply_all else 'no' }}
+          upgrade_type = security
+          random_sleep = 0
+          [emitters]
+          system_name = linux-hardened
+          emit_via = stdio
+          [base]
+          debuglevel = 1
+          [notify]
+          output_width = 80
+
+    - name: Enable dnf-automatic timer
+      ansible.builtin.systemd:
+        name: dnf-automatic.timer
+        enabled: true
+        state: started

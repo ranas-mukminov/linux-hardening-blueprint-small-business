@@ -1,0 +1,84 @@
+---
+- name: Determine firewall profile data
+  ansible.builtin.set_fact:
+    firewall_profile_data: "{{ firewall_profiles.get(firewall_profile, firewall_profiles['minimal']) }}"
+
+- name: Determine firewall backend
+  ansible.builtin.set_fact:
+    firewall_effective_backend: >-
+      {% if firewall_backend != 'auto' %}
+      {{ firewall_backend }}
+      {% elif ansible_facts['distribution'] == 'Ubuntu' and firewall_use_ufw_on_ubuntu %}
+      ufw
+      {% else %}
+      nftables
+      {% endif %}
+
+- name: Configure nftables firewall
+  when: firewall_effective_backend == 'nftables'
+  block:
+    - name: Install nftables
+      ansible.builtin.package:
+        name: nftables
+        state: present
+
+    - name: Deploy nftables configuration
+      ansible.builtin.template:
+        src: nftables.conf.j2
+        dest: /etc/nftables.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: reload nftables
+
+    - name: Enable nftables service
+      ansible.builtin.service:
+        name: nftables
+        enabled: true
+        state: started
+
+- name: Configure UFW firewall
+  when: firewall_effective_backend == 'ufw'
+  block:
+    - name: Install ufw
+      ansible.builtin.package:
+        name: ufw
+        state: present
+
+    - name: Reset ufw rules
+      community.general.ufw:
+        state: reset
+
+    - name: Set ufw defaults
+      community.general.ufw:
+        direction: incoming
+        policy: deny
+
+    - name: Set ufw outgoing defaults
+      community.general.ufw:
+        direction: outgoing
+        policy: allow
+
+    - name: Allow required ports
+      community.general.ufw:
+        rule: allow
+        proto: tcp
+        port: "{{ item }}"
+      loop: "{{ firewall_profile_data.allowed_tcp_ports | default([22]) }}"
+
+    - name: Allow LAN-scoped ports
+      when: (firewall_profile_data.lan_only_tcp_ports | default([])) | length > 0
+      community.general.ufw:
+        rule: allow
+        proto: tcp
+        port: "{{ item.1 }}"
+        src: "{{ item.0 }}"
+      loop: "{{ firewall_trust_subnets | product(firewall_profile_data.lan_only_tcp_ports | default([])) | list }}"
+      loop_control:
+        label: "{{ item.0 }}:{{ item.1 }}"
+
+    - name: Enable ufw
+      community.general.ufw:
+        state: enabled
+        direction: incoming
+        policy: deny

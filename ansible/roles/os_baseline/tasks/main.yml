@@ -1,0 +1,63 @@
+---
+- name: Derive distro specific package list
+  ansible.builtin.set_fact:
+    os_baseline_packages: >-
+      {{ os_baseline_packages_common +
+         os_baseline_package_overrides.get(ansible_facts['os_family'], []) }}
+
+- name: Install baseline packages
+  ansible.builtin.package:
+    name: "{{ os_baseline_packages }}"
+    state: present
+
+- name: Configure time synchronization daemon
+  vars:
+    time_service: "{{ os_baseline_time_services[os_baseline_time_sync_daemon] | default({}) }}"
+  block:
+    - name: Ensure time sync package present
+      ansible.builtin.package:
+        name: "{{ time_service.package | default(os_baseline_time_sync_daemon) }}"
+        state: present
+
+    - name: Enable and start time sync service
+      ansible.builtin.service:
+        name: "{{ time_service.service | default(os_baseline_time_sync_daemon) }}"
+        enabled: true
+        state: started
+
+- name: Apply sysctl settings
+  ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: true
+  loop: "{{ os_baseline_sysctl_settings | dict2items }}"
+  notify: reload sysctl
+
+- name: Harden sensitive directories
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    owner: root
+    group: root
+    mode: "{{ item.mode }}"
+  loop: "{{ os_baseline_protect_dirs }}"
+
+- name: Enforce temporary filesystem mount options
+  when: os_baseline_profile.enforce_mount_options | default(true)
+  ansible.posix.mount:
+    path: "{{ item.path }}"
+    src: "{{ item.src }}"
+    fstype: "{{ item.fstype }}"
+    opts: "{{ item.opts }}"
+    state: mounted
+  loop: "{{ os_baseline_mounts }}"
+
+- name: Disable optional noisy services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: false
+    state: stopped
+  loop: "{{ os_baseline_optional_services }}"
+  register: optional_services_state
+  failed_when: false
+  changed_when: optional_services_state is changed

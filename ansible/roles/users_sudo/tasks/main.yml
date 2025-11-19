@@ -1,0 +1,22 @@
+---
+- name: Ensure sudo admin group exists
+  ansible.builtin.group:
+    name: "{{ sudo_admin_group }}"
+    state: present
+
+- name: Ensure requested sudo users are present
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    groups: "{{ sudo_admin_group }}"
+    append: true
+    state: present
+    shell: "{{ item.shell | default('/bin/bash') }}"
+  loop: "{{ sudo_additional_users }}"
+
+- name: Configure sudoers policy
+  ansible.builtin.template:
+    src: sudoers.j2
+    dest: /etc/sudoers.d/99-linux-harden
+    mode: "0440"
+    owner: root
+    group: root

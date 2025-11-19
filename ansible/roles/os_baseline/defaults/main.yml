@@ -1,0 +1,42 @@
+os_baseline_packages_common:
+  - vim
+  - curl
+  - wget
+  - htop
+  - jq
+  - git
+os_baseline_time_sync_daemon: "{{ default_time_sync_daemon | default('chrony') }}"
+os_baseline_optional_services:
+  - avahi-daemon
+  - cups
+  - rpcbind
+os_baseline_sysctl_settings:
+  net.ipv4.ip_forward: 0
+  net.ipv4.conf.all.accept_source_route: 0
+  net.ipv4.conf.default.accept_source_route: 0
+  net.ipv4.conf.all.rp_filter: 1
+  net.ipv4.conf.default.rp_filter: 1
+  net.ipv4.tcp_syncookies: 1
+  net.ipv4.conf.all.send_redirects: 0
+  net.ipv4.conf.default.send_redirects: 0
+  net.ipv6.conf.all.accept_redirects: 0
+  kernel.kptr_restrict: 2
+  kernel.randomize_va_space: 2
+os_baseline_mounts:
+  - path: /tmp
+    src: tmpfs
+    fstype: tmpfs
+    opts: "defaults,noexec,nosuid,nodev"
+  - path: /var/tmp
+    src: tmpfs
+    fstype: tmpfs
+    opts: "defaults,noexec,nosuid,nodev"
+  - path: /dev/shm
+    src: tmpfs
+    fstype: tmpfs
+    opts: "defaults,noexec,nosuid,nodev"
+os_baseline_protect_dirs:
+  - path: /root
+    mode: "0700"
+  - path: /var/log
+    mode: "0750"

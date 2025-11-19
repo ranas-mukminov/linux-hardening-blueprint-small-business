@@ -1,0 +1,41 @@
+---
+- name: Verify hardened state
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check sshd config exists
+      ansible.builtin.stat:
+        path: /etc/ssh/sshd_config
+      register: sshd
+
+    - name: Assert sshd hardened settings
+      ansible.builtin.assert:
+        that:
+          - sshd.stat.exists
+
+    - name: Check nftables service state
+      ansible.builtin.command: systemctl is-active nftables
+      register: nftables_state
+      failed_when: nftables_state.rc not in [0, 3]
+      changed_when: false
+
+    - name: Check ufw service state
+      ansible.builtin.command: systemctl is-active ufw
+      register: ufw_state
+      failed_when: ufw_state.rc not in [0, 3]
+      changed_when: false
+
+    - name: Assert at least one firewall active
+      ansible.builtin.assert:
+        that:
+          - nftables_state.rc == 0 or ufw_state.rc == 0
+
+    - name: Validate sudoers file
+      ansible.builtin.stat:
+        path: /etc/sudoers.d/99-linux-harden
+      register: sudoers
+
+    - name: Assert sudoers hardened
+      ansible.builtin.assert:
+        that:
+          - sudoers.stat.exists

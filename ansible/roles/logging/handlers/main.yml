@@ -1,0 +1,9 @@
+---
+- name: restart journald
+  ansible.builtin.command: systemctl restart systemd-journald
+  become: true
+
+- name: restart rsyslog
+  ansible.builtin.service:
+    name: rsyslog
+    state: restarted

@@ -1,0 +1,13 @@
+/var/log/auth.log /var/log/secure {
+  rotate {{ logging_logrotate_keep }}
+  weekly
+  compress
+  delaycompress
+  missingok
+  notifempty
+  create 0600 root root
+  sharedscripts
+  postrotate
+    /bin/systemctl kill -s HUP rsyslog.service >/dev/null 2>&1 || true
+  endscript
+}

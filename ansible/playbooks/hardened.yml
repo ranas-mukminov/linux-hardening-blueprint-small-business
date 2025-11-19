@@ -1,0 +1,4 @@
+---
+# Convenience wrapper for hardened profile.
+# Run with: ansible-playbook ansible/playbooks/hardened.yml -i <inventory> -e linux_hardener_profile=hardened
+- import_playbook: site.yml

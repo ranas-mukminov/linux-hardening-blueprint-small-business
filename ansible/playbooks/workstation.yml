@@ -1,0 +1,4 @@
+---
+# Convenience wrapper for workstation profile.
+# Run with: ansible-playbook ansible/playbooks/workstation.yml -i <inventory> -e linux_hardener_profile=workstation
+- import_playbook: site.yml

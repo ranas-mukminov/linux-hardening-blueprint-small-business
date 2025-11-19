@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    linux_hardener_profile: server
+  roles:
+    - role: os_baseline
+      vars:
+        os_baseline_profile:
+          enforce_mount_options: false
+    - ssh_hardening
+    - firewall
+    - logging
+    - updates
+    - users_sudo

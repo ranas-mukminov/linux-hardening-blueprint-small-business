@@ -1,0 +1,35 @@
+---
+- name: Ensure admin group exists
+  ansible.builtin.group:
+    name: admin
+    state: present
+
+- name: Deploy SSH banner
+  ansible.builtin.copy:
+    dest: /etc/ssh/sshd_banner
+    content: "{{ ssh_banner_text | trim }}\n"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Configure sshd
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: "0600"
+    backup: true
+  notify: restart sshd
+
+- name: Ensure SSH service enabled
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - sshd
+    - ssh
+  register: ssh_service
+  failed_when: false
+  changed_when: ssh_service is changed

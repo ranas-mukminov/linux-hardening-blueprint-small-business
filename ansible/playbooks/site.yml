@@ -1,0 +1,30 @@
+---
+- name: Apply Linux hardening baseline
+  hosts: all
+  become: true
+  gather_facts: true
+  vars:
+    linux_hardener_active_profile: "{{ linux_hardener_profile | default('server') }}"
+  pre_tasks:
+    - name: Validate requested profile
+      ansible.builtin.assert:
+        that: "linux_hardener_active_profile in linux_hardener_profiles"
+        fail_msg: "Unknown profile '{{ linux_hardener_active_profile }}'"
+
+    - name: Set selected profile fact
+      ansible.builtin.set_fact:
+        linux_hardener_selected_profile: "{{ linux_hardener_profiles[linux_hardener_active_profile] }}"
+
+  roles:
+    - role: os_baseline
+      vars:
+        os_baseline_profile: "{{ linux_hardener_selected_profile }}"
+    - role: ssh_hardening
+      vars:
+        ssh_profile: "{{ linux_hardener_selected_profile }}"
+    - role: firewall
+      vars:
+        firewall_profile: "{{ linux_hardener_selected_profile.firewall_profile | default('minimal') }}"
+    - role: logging
+    - role: updates
+    - role: users_sudo

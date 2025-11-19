@@ -1,0 +1,12 @@
+all:
+  children:
+    workstations:
+      hosts:
+        laptop01:
+          ansible_host: 192.168.56.11
+    servers:
+      hosts:
+        web01:
+          ansible_host: 192.168.56.21
+        db01:
+          ansible_host: 192.168.56.22

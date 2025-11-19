@@ -1,0 +1,3 @@
+logging_remote_host: ""
+logging_journal_max_use: 200M
+logging_logrotate_keep: 12

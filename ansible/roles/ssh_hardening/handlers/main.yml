@@ -1,0 +1,10 @@
+---
+- name: restart sshd
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted
+  loop:
+    - sshd
+    - ssh
+  register: ssh_restart
+  failed_when: false

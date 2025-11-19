@@ -1,0 +1,19 @@
+firewall_backend: auto
+firewall_profile: minimal
+firewall_profiles:
+  minimal:
+    allowed_tcp_ports: [22]
+    lan_only_tcp_ports: []
+  web:
+    allowed_tcp_ports: [22, 80, 443]
+    lan_only_tcp_ports: []
+  hardened_web:
+    allowed_tcp_ports: [22, 443]
+    lan_only_tcp_ports: []
+  db_server:
+    allowed_tcp_ports: [22]
+    lan_only_tcp_ports: [3306]
+firewall_trust_subnets:
+  - 10.0.0.0/8
+  - 192.168.0.0/16
+firewall_use_ufw_on_ubuntu: true

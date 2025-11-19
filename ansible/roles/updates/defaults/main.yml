@@ -1,0 +1,4 @@
+updates_enable_security: true
+updates_apply_all: false
+updates_reboot_strategy: "{{ auto_update_reboot_strategy | default('if-needed') }}"
+updates_timer_hour: "03:00"

@@ -1,0 +1,28 @@
+linux_hardener_profile: server
+linux_hardener_profiles:
+  workstation:
+    ssh_permit_root_login: "prohibit-password"
+    ssh_password_auth: true
+    firewall_profile: minimal
+    enforce_mount_options: false
+    idle_timeout: 900
+  server:
+    ssh_permit_root_login: "no"
+    ssh_password_auth: false
+    firewall_profile: web
+    enforce_mount_options: true
+    idle_timeout: 600
+  hardened:
+    ssh_permit_root_login: "no"
+    ssh_password_auth: false
+    firewall_profile: hardened_web
+    enforce_mount_options: true
+    idle_timeout: 300
+    strict_session_termination: true
+
+default_time_sync_daemon: chrony
+firewall_default_zone: public
+firewall_allowed_tcp_ports: [22]
+logging_remote_host: ""
+auto_update_reboot_strategy: if-needed
+sudo_default_group: admin

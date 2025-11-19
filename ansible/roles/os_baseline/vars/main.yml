@@ -1,0 +1,14 @@
+os_baseline_time_services:
+  chrony:
+    package: chrony
+    service: chronyd
+  systemd-timesyncd:
+    package: systemd-timesyncd
+    service: systemd-timesyncd
+os_baseline_package_overrides:
+  Debian:
+    - apt-transport-https
+  Ubuntu:
+    - unattended-upgrades
+  RedHat:
+    - dnf-automatic
