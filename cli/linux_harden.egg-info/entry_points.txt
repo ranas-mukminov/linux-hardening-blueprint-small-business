@@ -1,2 +1,0 @@
-[console_scripts]
-linux-harden = linux_hardener.cli:run

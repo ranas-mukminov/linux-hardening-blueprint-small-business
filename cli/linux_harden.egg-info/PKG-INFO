@@ -1,9 +1,0 @@
-Metadata-Version: 2.4
-Name: linux-harden
-Version: 0.1.0
-Summary: CLI wrapper for the Linux hardening blueprint
-Author: Ranas Mukminov
-License: Apache-2.0
-Requires-Python: >=3.10
-Requires-Dist: typer[all]>=0.9
-Requires-Dist: pyyaml>=6.0

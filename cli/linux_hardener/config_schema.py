@@ -1,4 +1,5 @@
 """Configuration loader and validation helpers for linux-harden."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -39,7 +40,10 @@ class CLIConfig:
     extra_vars: Optional[str] = None
 
     def merge(self, overrides: Dict[str, Any]) -> "CLIConfig":
-        data = {**self.__dict__, **{k: v for k, v in overrides.items() if v is not None}}
+        data = {
+            **self.__dict__,
+            **{k: v for k, v in overrides.items() if v is not None},
+        }
         return CLIConfig(**data)
 
 
