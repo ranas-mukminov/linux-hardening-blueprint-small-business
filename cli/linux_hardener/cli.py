@@ -1,4 +1,5 @@
 """Console entry point for the linux-harden CLI."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -10,7 +11,9 @@ import typer
 from .config_schema import CLIConfig, SUPPORTED_PROFILES, load_config
 from .runner import build_command, run_playbook
 
-app = typer.Typer(add_completion=False, help="Automation-friendly Linux hardening wrapper")
+app = typer.Typer(
+    add_completion=False, help="Automation-friendly Linux hardening wrapper"
+)
 
 
 def _resolve_config(
@@ -46,7 +49,9 @@ def main(
         "--profile",
         help="Profile to apply (workstation/server/hardened)",
         show_default=False,
-        autocompletion=lambda incomplete: [p for p in SUPPORTED_PROFILES if p.startswith(incomplete)],
+        autocompletion=lambda incomplete: [
+            p for p in SUPPORTED_PROFILES if p.startswith(incomplete)
+        ],
     ),
     inventory: Optional[str] = typer.Option(
         None,
@@ -60,7 +65,9 @@ def main(
         "-l",
         help="Host pattern to limit execution to",
     ),
-    check: bool = typer.Option(False, "--check", help="Run Ansible in check (dry-run) mode"),
+    check: bool = typer.Option(
+        False, "--check", help="Run Ansible in check (dry-run) mode"
+    ),
     extra_vars: Optional[Path] = typer.Option(
         None,
         "--extra-vars",

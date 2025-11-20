@@ -1,4 +1,5 @@
 """Utilities to construct and run ansible-playbook commands."""
+
 from __future__ import annotations
 
 import shlex
