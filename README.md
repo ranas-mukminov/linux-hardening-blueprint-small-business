@@ -1,85 +1,42 @@
 # 🛡️ Linux Hardening Blueprint for Small Business
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE) 
-[![Tested Distros](https://img.shields.io/badge/tested-Debian%2012%20%E2%80%A2%20Ubuntu%2022.04%20%E2%80%A2%20Rocky%209-success.svg)](#-supported-distributions--поддерживаемые-дистрибутивы)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Tested Distros](https://img.shields.io/badge/tested-Debian%2012%20%E2%80%A2%20Ubuntu%2022.04%20%E2%80%A2%20Rocky%209-success.svg)](#supported-distributions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Ansible 2.16+](https://img.shields.io/badge/ansible-2.16+-red.svg)](https://docs.ansible.com/)
 [![CI](https://github.com/ranas-mukminov/linux-hardening-blueprint-small-business/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
 
-**Opinionated, automation-ready Linux hardening for small businesses and homelabs**
+🇬🇧 English | 🇷🇺 [Русская версия](README.ru.md)
 
-**Opinionated автоматизация усиления безопасности Linux для малого бизнеса и домашних лабораторий**
-
-🎯 **Production-ready** | 🤖 **Ansible-based** | 🐧 **Multi-distro** | 🔒 **Security-First**
-
-> ⚡ **[Quick Start](#-quick-start--быстрый-старт)** | 📖 **[Documentation](#-documentation--документация)** | 🔧 **[Profiles](#-profiles--профили)** | 🧪 **[Testing](#-testing--тестирование)** | 💼 **[Professional Services](#-production-deployment--professional-support)**
+**Production-ready Linux security hardening automation for small businesses, freelancers, and homelabs**
 
 ---
 
-## 🎯 Production Deployment & Professional Support
+## Overview
 
-Looking for **enterprise-grade security hardening** or **professional DevSecOps assistance**?
+Linux Hardening Blueprint is an opinionated, automation-first security hardening toolkit built with Ansible. It delivers repeatable, auditable server hardening for small teams without dedicated security engineers.
 
-**[run-as-daemon.ru](https://run-as-daemon.ru)** — Professional DevOps & Security Services
+Package safe defaults and pragmatic automation to deploy hardened Linux hosts in hours instead of weeks. Choose from three profiles (workstation, server, hardened), customize via YAML, and apply changes idempotently via Ansible playbooks or a simple CLI wrapper.
 
-**Services:**
-- 🛡️ **Security Hardening**: Linux server hardening, compliance audits (CIS, DISA STIG)
-- 🏗️ **Infrastructure Security**: Secure infrastructure design and implementation
-- 🔒 **Security-First Architecture**: "Defense by design. Speed by default"
-- ⚙️ **Automation**: Ansible, Terraform, CI/CD security integration
-- 📊 **Compliance**: Readiness assessments, continuous compliance monitoring
-- 🤖 **DevSecOps**: Managed security operations, incident response runbooks
-
-💬 **Contact for consulting**: Available via Telegram, VK, WhatsApp, GitHub
+Tested on Debian 12, Ubuntu 22.04 LTS, and Rocky Linux 9, with CI/CD validation, Molecule tests, and built-in rollback safety.
 
 ---
 
-## 🌟 Why This Blueprint Exists / Зачем этот проект
+## Key Features
 
-**English:**
-Small teams rarely have dedicated security engineers, yet they still need a repeatable, defensible hardening story for auditors, customers, and their own peace of mind. This project packages safe defaults and pragmatic automation so freelancers and small businesses can deploy hardened hosts in hours instead of weeks.
-
-**Русский:**
-Небольшие команды редко имеют выделенных специалистов по безопасности, но им все равно нужна воспроизводимая и защищенная конфигурация для аудиторов, клиентов и собственного спокойствия. Этот проект предоставляет безопасные настройки по умолчанию и прагматичную автоматизацию, чтобы фрилансеры и малый бизнес могли развернуть защищенные хосты за часы, а не недели.
-
----
-
-## ✨ Features / Возможности
-
-### English:
-- 🔐 **SSH Hardening**: Modern ciphers, key-based authentication, profile-aware policies
+- 🔐 **SSH Hardening**: Modern ciphers, key-based auth, profile-aware policies
 - 🛡️ **Firewall Management**: nftables/ufw with minimal, web, database-friendly rule sets
 - 👥 **User & Sudo Control**: No passwordless sudo by default, access hygiene
-- 📁 **Filesystem Security**: Sensible permissions, mount options hardening
-- 🔄 **Auto Updates**: Automatic security updates with monitoring
-- 📊 **Logging & Monitoring**: Attack-surface reduction, comprehensive audit trails
+- 📁 **Filesystem Security**: Sensible permissions, hardened mount options
+- 🔄 **Automated Security Updates**: Unattended upgrades with monitoring
+- 📊 **Comprehensive Logging**: Attack-surface reduction, audit trails
 - 🎯 **Profile-Based**: workstation, server, hardened profiles with overrides
 - 🐳 **Automation-Ready**: Ansible playbooks, idempotent, CI/CD friendly
-
-### Русский:
-- 🔐 **Усиление SSH**: Современные шифры, аутентификация по ключам, политики на основе профилей
-- 🛡️ **Управление фаерволом**: nftables/ufw с готовыми наборами правил для минимальной, веб и database конфигураций
-- 👥 **Контроль пользователей и sudo**: Без sudo без пароля по умолчанию, гигиена доступа
-- 📁 **Безопасность файловой системы**: Разумные разрешения и параметры монтирования
-- 🔄 **Автообновления**: Автоматические обновления безопасности с мониторингом
-- 📊 **Логирование и мониторинг**: Уменьшение поверхности атаки, комплексные журналы аудита
-- 🎯 **Профили**: рабочая станция, сервер, усиленная защита с возможностью переопределения
-- 🐳 **Готовность к автоматизации**: Ansible playbooks, идемпотентность, интеграция с CI/CD
+- 🧪 **Battle-Tested**: pytest, Molecule integration tests, GitHub Actions CI
 
 ---
 
-## 🐧 Supported Distributions / Поддерживаемые дистрибутивы
-
-| Distribution | Version | Status | Notes |
-|--------------|---------|--------|-------|
-| Debian | 12 (Bookworm) | ✅ Tested | Recommended |
-| Ubuntu | 22.04 LTS (Jammy) | ✅ Tested | LTS Support |
-| Rocky Linux | 9 | ✅ Tested | RHEL Compatible |
-| AlmaLinux | 9 | ✅ Tested | RHEL Compatible |
-
----
-
-## 🏗️ Architecture / Архитектура
+## Architecture
 
 ```
 ┌─────────────────────────────────────┐
@@ -102,381 +59,485 @@ Small teams rarely have dedicated security engineers, yet they still need a repe
 └─────────────────────────────────────┘
 ```
 
-### English:
-- **Inventories** live under `ansible/inventories/`
-- **Group defaults** in `ansible/group_vars/`
-- **Profiles** map to playbooks (`workstation.yml`, `server.yml`, `hardened.yml`) that include the shared baseline
-- Each role is idempotent and can be run independently or as part of a complete profile
-
-### Русский:
-- **Инвентари** находятся в `ansible/inventories/`
-- **Групповые настройки по умолчанию** в `ansible/group_vars/`
-- **Профили** соответствуют playbook'ам (`workstation.yml`, `server.yml`, `hardened.yml`), которые включают общий базовый уровень
-- Каждая роль идемпотентна и может выполняться независимо или как часть полного профиля
+**Components:**
+- **Inventories**: Target hosts at `ansible/inventories/`
+- **Group Variables**: Defaults in `ansible/group_vars/all.yml`
+- **Profiles**: Playbooks (`workstation.yml`, `server.yml`, `hardened.yml`)
+- **Roles**: Modular Ansible roles (firewall, SSH, logging, etc.)
+- **CLI Wrapper**: Python CLI (`linux-harden`) for simplified execution
 
 ---
 
-## 🚀 Quick Start / Быстрый старт
+## Requirements
 
-### Requirements / Требования:
+**Supported Distributions:**
+
+| Distribution | Version | Status |
+|--------------|---------|--------|
+| Debian       | 12 (Bookworm) | ✅ Tested |
+| Ubuntu       | 22.04 LTS | ✅ Tested |
+| Rocky Linux  | 9 | ✅ Tested |
+| AlmaLinux    | 9 | ✅ Tested |
+
+**Software:**
 - Python 3.10+
 - Ansible 2.16+
-- SSH access to managed hosts / SSH доступ к управляемым хостам
-- Collections: `community.general` and `ansible.posix` (installed automatically by `scripts/install.sh`)
+- SSH access to managed hosts with sudo
+- Collections: `community.general`, `ansible.posix` (auto-installed)
 
-### Three-Command Setup / Установка в три команды:
+**System:**
+- Control node: 1 CPU, 512 MB RAM, 5 GB disk
+- Target hosts: Root/sudo access, systemd
+
+**Network:**
+- SSH connectivity
+- Internet access for packages
+- Open required ports (22, 80, 443, etc.)
+
+---
+
+## Quick Start
 
 ```bash
-# Clone and install / Клонируйте и установите
+# Clone and install
 git clone https://github.com/ranas-mukminov/linux-hardening-blueprint-small-business.git
 cd linux-hardening-blueprint-small-business
 scripts/install.sh
+source .venv/bin/activate
 
-# Run hardening / Запустите усиление защиты
-linux-harden --profile server --inventory ansible/inventories/example_inventory.yml --limit webservers
+# Configure inventory
+# Edit ansible/inventories/example_inventory.yml
 
-# Check status / Проверьте статус
-ansible-playbook -i ansible/inventories/example_inventory.yml ansible/playbooks/server.yml --check
-```
-
-### Usage Options / Варианты использования:
-
-**CLI Wrapper / CLI обертка:**
-```bash
-# Basic usage / Базовое использование
+# Run hardening
 linux-harden --profile server \
   --inventory ansible/inventories/example_inventory.yml \
   --limit webservers
 
-# Dry run / Пробный запуск
-linux-harden --profile hardened \
+# Verify (dry-run)
+linux-harden --profile server \
   --inventory ansible/inventories/example_inventory.yml \
   --check
+```
 
-# With overrides / С переопределениями
+---
+
+## Detailed Installation
+
+### Debian 12 / Ubuntu 22.04 LTS
+
+```bash
+sudo apt update
+sudo apt install -y python3 python3-pip python3-venv git openssh-client
+
+git clone https://github.com/ranas-mukminov/linux-hardening-blueprint-small-business.git
+cd linux-hardening-blueprint-small-business
+scripts/install.sh
+source .venv/bin/activate
+
+linux-harden --version
+ansible --version
+```
+
+### Rocky Linux 9 / AlmaLinux 9
+
+```bash
+sudo dnf install -y python3 python3-pip git openssh-clients
+
+git clone https://github.com/ranas-mukminov/linux-hardening-blueprint-small-business.git
+cd linux-hardening-blueprint-small-business
+scripts/install.sh
+source .venv/bin/activate
+
+linux-harden --version
+ansible --version
+```
+
+---
+
+## Configuration
+
+### Main Config (`ansible/group_vars/all.yml`)
+
+```yaml
+linux_hardener_profile: server
+
+linux_hardener_profiles:
+  server:
+    ssh_permit_root_login: "no"
+    ssh_password_auth: false
+    firewall_profile: web
+    enforce_mount_options: true
+    idle_timeout: 600
+
+firewall_allowed_tcp_ports: [22, 80, 443]
+logging_remote_host: ""
+auto_update_reboot_strategy: if-needed
+sudo_default_group: admin
+```
+
+### Override with Extra Vars
+
+```bash
+# Create custom_vars.yml
+cat > custom_vars.yml <<EOF
+firewall_allowed_tcp_ports: [22, 80, 443, 8080]
+ssh_password_auth: false
+idle_timeout: 300
+logging_remote_host: "syslog.example.com:514"
+EOF
+
+# Apply
 linux-harden --profile server \
   --inventory ansible/inventories/example_inventory.yml \
   --extra-vars @custom_vars.yml
 ```
 
-**Raw Ansible Playbooks / Прямые Ansible Playbooks:**
+### Firewall Profiles
+
+- **minimal**: SSH only (22)
+- **web**: SSH + HTTP/HTTPS (22, 80, 443)
+- **database**: SSH + PostgreSQL/MySQL (22, 5432, 3306)
+- **hardened_web**: Web + strict rate limiting
+
+---
+
+## Usage
+
+### Manage Services
+
 ```bash
+# SSH
+sudo systemctl restart sshd
+sudo systemctl status sshd
+
+# Firewall (nftables)
+sudo systemctl restart nftables
+sudo nft list ruleset
+
+# Firewall (ufw)
+sudo ufw status verbose
+sudo ufw reload
+
+# Auto-updates
+sudo systemctl status unattended-upgrades
+```
+
+### Common Tasks
+
+```bash
+# Run specific role
 ansible-playbook -i ansible/inventories/example_inventory.yml \
-  ansible/playbooks/server.yml -l webservers
+  ansible/playbooks/server.yml --tags ssh_hardening
+
+# Dry-run with diff
+ansible-playbook -i ansible/inventories/example_inventory.yml \
+  ansible/playbooks/server.yml --check --diff
+
+# Verbose output
+ansible-playbook -i ansible/inventories/example_inventory.yml \
+  ansible/playbooks/server.yml -vvv
 ```
 
 ---
 
-## 🎯 Profiles / Профили
+## Update / Upgrade
+
+### Update Toolkit
+
+```bash
+cd linux-hardening-blueprint-small-business
+git pull origin main
+source .venv/bin/activate
+pip install --upgrade -e ./cli
+```
+
+### Re-apply Hardening
+
+```bash
+linux-harden --profile server \
+  --inventory ansible/inventories/example_inventory.yml
+```
+
+### Update Managed Hosts
+
+Automatic updates enabled via `unattended-upgrades`. Manual:
+
+```bash
+# Debian/Ubuntu
+sudo apt update && sudo apt upgrade -y
+
+# Rocky/Alma
+sudo dnf upgrade -y
+```
+
+---
+
+## Logs and Troubleshooting
+
+### Log Locations
+
+```bash
+# SSH logs
+sudo journalctl -u sshd -f
+sudo tail -f /var/log/auth.log  # Debian/Ubuntu
+sudo tail -f /var/log/secure    # Rocky/Alma
+
+# Firewall logs
+sudo journalctl -k | grep nft
+sudo tail -f /var/log/ufw.log
+
+# Auto-updates
+sudo tail -f /var/log/unattended-upgrades/unattended-upgrades.log
+```
+
+### Common Problems
+
+**SSH Access Denied:**
+
+1. Use console access (cloud console, KVM, physical)
+2. Check backup: `/etc/ssh/sshd_config.bak`
+3. Review logs: `journalctl -u sshd`
+4. Verify SSH keys in `~/.ssh/authorized_keys`
+5. Temp enable password auth:
+   ```bash
+   sudo sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+   sudo systemctl restart sshd
+   ```
+
+**Firewall Blocks Traffic:**
+
+1. Check rules: `sudo nft list ruleset` or `sudo ufw status verbose`
+2. Review `firewall_allowed_tcp_ports` in config
+3. Add ports to inventory or extra vars
+4. Temp disable: `sudo systemctl stop nftables` or `sudo ufw disable`
+5. Re-run with corrected settings
+
+**Auto-Updates Not Working:**
+
+```bash
+sudo systemctl status unattended-upgrades
+sudo cat /var/log/unattended-upgrades/unattended-upgrades.log
+sudo unattended-upgrade --debug
+```
+
+**Playbook Fails:**
+
+1. Run verbose: `ansible-playbook ... -vvv`
+2. Check role defaults: `ansible/roles/*/defaults/main.yml`
+3. Verify distribution requirements
+4. Check Ansible version
+
+---
+
+## Security Considerations
+
+### Important
+
+- **NOT** official CIS/DISA STIG/vendor benchmark
+- Always test in **staging** before production
+- Maintain **backups** (configs auto-backed up to `.bak`)
+- **Validate** against your compliance requirements
+- Use at **own risk**
+- Based on **widely accepted best practices**
+- Validate against **threat model** and **change management**
+
+### Safety & Rollback
+
+- Every role is **idempotent**
+- Test on staging VMs first
+- Use `--check` for dry-run
+- Configs backed up automatically
+- Restore from `.bak` files if needed
+- Override variables to revert changes
+
+### Best Practices
+
+**Before:**
+1. Review role defaults
+2. Customize firewall rules
+3. Deploy SSH keys
+4. Document changes
+5. Schedule maintenance window
+
+**After:**
+1. Change default passwords
+2. Restrict SSH access (VPN/firewall)
+3. Configure remote logging
+4. Enable monitoring
+5. Regular security audits
+
+**Do NOT:**
+- Expose SSH to Internet without protection
+- Disable all auth methods simultaneously
+- Skip testing
+- Ignore backups
+
+---
+
+## Project Structure
+
+```
+linux-hardening-blueprint-small-business/
+├── ansible/
+│   ├── inventories/      # Example inventories
+│   ├── group_vars/       # Global defaults
+│   ├── playbooks/        # Hardening playbooks
+│   └── roles/            # Ansible roles
+│       ├── firewall/
+│       ├── logging/
+│       ├── os_baseline/
+│       ├── ssh_hardening/
+│       ├── updates/
+│       └── users_sudo/
+├── cli/
+│   └── linux_hardener/   # Python CLI wrapper
+├── scripts/
+│   ├── install.sh        # Installation script
+│   ├── lint.sh           # Linting
+│   └── run_playbook.sh
+├── tests/
+│   ├── unit/             # Pytest tests
+│   └── integration/      # Molecule tests
+├── .github/workflows/    # CI/CD
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+└── README.md
+```
+
+---
+
+## Profiles
 
 | Feature | Workstation | Server | Hardened |
 |---------|-------------|--------|----------|
-| **SSH Password Auth** | ⚠️ Optional | ❌ Disabled | ❌ Disabled |
+| **SSH Password** | ⚠️ Optional | ❌ Disabled | ❌ Disabled |
 | **Firewall** | ✅ Basic | ✅ Standard | ✅✅ Strict |
 | **Logging** | ⚠️ Basic | ✅ Standard | ✅✅ Verbose |
 | **Kernel Hardening** | ⚠️ Minimal | ✅ Standard | ✅✅ Maximum |
 | **Auto Updates** | ✅ Enabled | ✅ Enabled | ✅ Enabled |
-| **Sudo Access** | ⚠️ Flexible | ✅ Controlled | ✅✅ Restricted |
-| **Best For** | Laptops/Desktops | Web/App Servers | Internet-facing |
+| **Sudo** | ⚠️ Flexible | ✅ Controlled | ✅✅ Restricted |
+| **Best For** | Laptops | Web/App Servers | Internet-facing |
 
-### Profile Descriptions / Описание профилей:
-
-**Workstation / Рабочая станция:**
-- **English**: Keeps laptops usable, but enforces SSH keys, firewall defaults, auto updates, and telemetry hygiene.
-- **Русский**: Сохраняет удобство использования ноутбуков, но обеспечивает SSH ключи, настройки фаервола по умолчанию, автообновления и контроль телеметрии.
-
-**Server / Сервер:**
-- **English**: Balanced default for web/app/database nodes; disables password SSH by default, applies conservative filesystem and sysctl settings.
-- **Русский**: Сбалансированные настройки по умолчанию для веб/приложение/database узлов; отключает парольный SSH по умолчанию, применяет консервативные настройки файловой системы и sysctl.
-
-**Hardened / Усиленная защита:**
-- **English**: For exposed Internet hosts; enables stricter SSH and firewall rules, aggressive logging, and mount option tightening. Review before deploying to production workloads.
-- **Русский**: Для хостов, открытых в Интернет; включает более строгие правила SSH и фаервола, агрессивное логирование и ужесточение опций монтирования. Проверьте перед развертыванием в продакшен.
-
-**Customization / Настройка:**
-
-Each profile extends the same roles with overridable variables (`ansible/group_vars/all.yml` and role defaults). You can mix and match roles or run a subset by editing playbooks.
-
-Каждый профиль расширяет одни и те же роли с переопределяемыми переменными (`ansible/group_vars/all.yml` и значения по умолчанию ролей). Вы можете комбинировать роли или запускать подмножество, редактируя playbooks.
+**Workstation:** Developer laptops, desktops, admin jump boxes  
+**Server:** Web/app/database nodes, private cloud  
+**Hardened:** Internet-facing, DMZ, high-security
 
 ---
 
-## 🧪 Testing / Тестирование
-
-### Local Testing / Локальное тестирование:
+## Testing
 
 ```bash
-# Unit tests / Модульные тесты
-pytest tests/
+# Unit tests
+pytest tests/unit/
 
-# Linting / Проверка кода
+# Linting
 scripts/lint.sh
 
-# Molecule tests / Тесты Molecule
-cd ansible
+# Molecule tests
+cd tests/integration/molecule/default
 molecule test
+molecule test -- --limit debian12
 ```
 
-### CI/CD Pipeline / CI/CD конвейер:
-
-**English:**
+**CI/CD:**
 - ✅ GitHub Actions automated testing
 - ✅ Multi-distro matrix (Debian, Ubuntu, Rocky)
-- ✅ Security scanning with pip-audit
+- ✅ Security scanning (pip-audit, bandit)
 - ✅ Idempotency checks
 
-**Русский:**
-- ✅ Автоматизированное тестирование GitHub Actions
-- ✅ Матрица нескольких дистрибутивов (Debian, Ubuntu, Rocky)
-- ✅ Сканирование безопасности с pip-audit
-- ✅ Проверки идемпотентности
+---
 
-### Test Coverage / Покрытие тестами:
+## Roadmap
 
-- **Unit tests** (`pytest`): CLI command builder and config schema validation
-- **Molecule** (Docker driver): Ansible roles validation against Debian and Rocky images
-- **GitHub Actions CI** (`.github/workflows/ci.yml`): Linting, unit tests, and Molecule jobs
-- **Security workflow** (`.github/workflows/security.yml`): Dependency audits with `pip-audit`
+- Additional distro support (Fedora, openSUSE)
+- CIS benchmark compliance reporting
+- Terraform/Packer integration
+- Prometheus/Grafana integration
+- Web-based management UI
+- Container/Kubernetes hardening
+
+See [GitHub Issues](https://github.com/ranas-mukminov/linux-hardening-blueprint-small-business/issues).
 
 ---
 
-## 🐛 Troubleshooting / Решение проблем
+## Contributing
 
-### Common Issues / Частые проблемы:
+1. Open an issue describing feature/bug
+2. Fork repository, create topic branch
+3. Keep commits small and descriptive
+4. Run quality checks: `scripts/lint.sh`, `pytest`, `molecule test`
+5. Fill out PR template
+6. Ensure originality (no CIS/STIG copies)
 
-#### SSH Access Denied After Hardening
-
-**English:**
-If you're locked out after SSH hardening:
-1. Use console access (cloud provider console, KVM, physical access)
-2. Check `/etc/ssh/sshd_config.bak` for the backup configuration
-3. Review SSH logs: `journalctl -u sshd` or `/var/log/auth.log`
-4. Verify key-based authentication is properly configured
-5. Temporarily enable password auth if needed: `PasswordAuthentication yes`
-6. Restart SSH: `systemctl restart sshd`
-
-**Русский:**
-Если вы заблокированы после усиления SSH:
-1. Используйте консольный доступ (консоль облачного провайдера, KVM, физический доступ)
-2. Проверьте `/etc/ssh/sshd_config.bak` для резервной конфигурации
-3. Просмотрите логи SSH: `journalctl -u sshd` или `/var/log/auth.log`
-4. Убедитесь, что аутентификация по ключам правильно настроена
-5. Временно включите парольную аутентификацию при необходимости: `PasswordAuthentication yes`
-6. Перезапустите SSH: `systemctl restart sshd`
-
-#### Firewall Blocks Legitimate Traffic
-
-**English:**
-If your firewall is blocking legitimate traffic:
-1. Check active rules: `nft list ruleset` or `ufw status verbose`
-2. Review firewall role variables in `ansible/group_vars/`
-3. Add custom rules via overrides in your inventory or extra vars
-4. Temporarily disable to test: `systemctl stop nftables` or `ufw disable`
-5. Re-run playbook with corrected firewall settings
-
-**Русский:**
-Если ваш фаервол блокирует легитимный трафик:
-1. Проверьте активные правила: `nft list ruleset` или `ufw status verbose`
-2. Просмотрите переменные роли фаервола в `ansible/group_vars/`
-3. Добавьте пользовательские правила через переопределения в вашем инвентаре или extra vars
-4. Временно отключите для тестирования: `systemctl stop nftables` или `ufw disable`
-5. Повторно запустите playbook с исправленными настройками фаервола
-
-#### Auto-updates Not Working
-
-**English:**
-Verify unattended-upgrades service:
-```bash
-systemctl status unattended-upgrades
-cat /var/log/unattended-upgrades/unattended-upgrades.log
-apt-config dump APT::Periodic::Unattended-Upgrade  # Debian/Ubuntu
-```
-
-**Русский:**
-Проверьте службу unattended-upgrades:
-```bash
-systemctl status unattended-upgrades
-cat /var/log/unattended-upgrades/unattended-upgrades.log
-apt-config dump APT::Periodic::Unattended-Upgrade  # Debian/Ubuntu
-```
-
-#### Playbook Fails on Specific Task
-
-**English:**
-- Run with verbose output: `ansible-playbook ... -vvv`
-- Check role defaults and variables in `ansible/roles/*/defaults/main.yml`
-- Review task conditions and when clauses
-- Ensure target system meets distribution requirements
-
-**Русский:**
-- Запустите с подробным выводом: `ansible-playbook ... -vvv`
-- Проверьте значения по умолчанию ролей и переменные в `ansible/roles/*/defaults/main.yml`
-- Просмотрите условия задач и when клаузы
-- Убедитесь, что целевая система соответствует требованиям дистрибутива
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
-## 🔒 Security Considerations / Вопросы безопасности
-
-⚠️ **Important / Важно**:
-
-### English:
-- This blueprint is **NOT** an official CIS, DISA STIG, or vendor benchmark
-- Always test in **staging environments** before production deployment
-- Maintain **backups** before applying changes (configs are backed up to `.bak` files)
-- **Validate** against your specific compliance requirements
-- Use at your **own risk** in production environments
-- This is written from scratch based on **widely accepted best practices**
-- You must validate the output against your own **compliance obligations**, **threat model**, and **change management** processes
-
-### Русский:
-- Этот проект **НЕ** является официальным CIS, DISA STIG или вендорным бенчмарком
-- Всегда тестируйте на **тестовом окружении** перед развертыванием в продакшене
-- Создавайте **резервные копии** перед применением изменений (конфиги резервируются в `.bak` файлы)
-- **Проверяйте** соответствие вашим специфическим требованиям compliance
-- Используйте на **свой риск** в продакшн окружении
-- Проект написан с нуля на основе **широко признанных лучших практик**
-- Вы должны проверить результат на соответствие вашим **обязательствам по compliance**, **модели угроз** и процессам **управления изменениями**
-
-### Safety & Rollback / Безопасность и откат:
-
-**English:**
-- Every role is **idempotent**: running twice should yield zero changes
-- Test on **staging VMs** or disposable cloud nodes before touching production
-- **Backup** configs such as `/etc/ssh/sshd_config` (SSH hardening role creates `.bak` files automatically)
-- To **revert** specific changes: disable the corresponding role in a playbook or override the relevant variables, then re-run the play
-
-**Русский:**
-- Каждая роль **идемпотентна**: повторный запуск не должен вносить изменений
-- Тестируйте на **тестовых VM** или одноразовых облачных узлах перед продакшеном
-- **Резервируйте** конфиги такие как `/etc/ssh/sshd_config` (роль SSH автоматически создает `.bak` файлы)
-- Для **отката** конкретных изменений: отключите соответствующую роль в playbook или переопределите соответствующие переменные, затем повторно запустите play
-
----
-
-## 📚 Documentation / Документация
-
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contribution guidelines / Руководство по участию
-- **[LEGAL.md](./LEGAL.md)** - Legal disclaimers and responsible use / Юридические оговорки и ответственное использование
-- **[CHANGELOG.md](./CHANGELOG.md)** - Version history / История версий
-- **[Ansible Roles](./ansible/roles/)** - Individual role documentation / Документация отдельных ролей
-- **[CLI Documentation](./cli/)** - CLI wrapper documentation / Документация CLI обертки
-
----
-
-## 👨‍💻 Author & Professional Services
-
-**Ранас М. (Ranas M.)** — DevOps Engineer & Security Specialist
-
-### 🌐 Professional Services: [run-as-daemon.ru](https://run-as-daemon.ru)
-
-**"Defense by design. Speed by default"** — Security-first architecture with performance optimization
-
-#### 💼 Services Offered:
-
-**🛡️ Security & Hardening**
-- Linux server security audits and hardening
-- Compliance assessments (CIS, DISA STIG, PCI DSS)
-- Security automation with Ansible
-- Intrusion detection and prevention setup
-- Security monitoring and alerting
-
-**🏗️ Infrastructure & Orchestration**
-- Secure infrastructure design
-- Docker, Kubernetes, Nomad deployments
-- High-availability cluster configuration
-- CI/CD pipeline security integration
-
-**🔒 DevSecOps Services**
-- Security-first development workflows
-- Automated security testing
-- Vulnerability management
-- Incident response planning
-- Continuous compliance monitoring
-
-**⚙️ Linux Administration**
-- Server installation and configuration
-- Firewall setup (nftables, ufw, iptables)
-- SSH and VPN hardening
-- Automated backups and disaster recovery
-
-#### 📞 Contact for Consulting:
-- 🌐 Website: [run-as-daemon.ru](https://run-as-daemon.ru)
-- 💬 Telegram: Contact via website
-- 📱 VK: Contact via website
-- 💼 WhatsApp: Contact via website
-- 🐙 GitHub: [@ranas-mukminov](https://github.com/ranas-mukminov)
-
----
-
-## 📮 Support / Поддержка
-
-### Community Support / Поддержка сообщества:
-
-**English:**
-- Open an issue on [GitHub Issues](https://github.com/ranas-mukminov/linux-hardening-blueprint-small-business/issues)
-- Check existing issues for solutions
-- Review documentation in repository
-
-**Русский:**
-- Откройте issue на [GitHub Issues](https://github.com/ranas-mukminov/linux-hardening-blueprint-small-business/issues)
-- Проверьте существующие issues для решений
-- Просмотрите документацию в репозитории
-
-### Professional Support / Профессиональная поддержка:
-
-**English:**
-- Security audits and assessments
-- Custom hardening implementations
-- Compliance consulting
-- Managed security operations
-- 24/7 monitoring and incident response
-
-**Русский:**
-- Аудиты и оценка безопасности
-- Кастомные реализации усиления защиты
-- Консалтинг по compliance
-- Управляемые операции безопасности
-- Мониторинг и реагирование на инциденты 24/7
-
-**Contact / Контакты:** [run-as-daemon.ru](https://run-as-daemon.ru)
-
----
-
-## 🤝 Contributing / Участие в разработке
-
-**English:**
-We gladly accept issues and pull requests:
-1. Open an issue describing the desired feature or bug fix
-2. Fork the repository, create a topic branch, and keep commits small
-3. Run `scripts/lint.sh`, `pytest`, and `molecule test` before submitting
-4. Fill out the PR template and describe testing performed
-5. See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines
-
-**Русский:**
-Мы с радостью принимаем issues и pull request'ы:
-1. Откройте issue с описанием желаемой функции или исправления ошибки
-2. Сделайте fork репозитория, создайте тематическую ветку и делайте небольшие коммиты
-3. Запустите `scripts/lint.sh`, `pytest` и `molecule test` перед отправкой
-4. Заполните шаблон PR и опишите проведенное тестирование
-5. См. [CONTRIBUTING.md](./CONTRIBUTING.md) для подробных рекомендаций
-
----
-
-## 📄 License / Лицензия
+## License
 
 Licensed under the [Apache License 2.0](LICENSE).
 
-By contributing you agree that your work will be licensed under the Apache License 2.0.
+```
+Copyright (c) 2025 Ranas Mukminov
+```
 
-Лицензировано под [Apache License 2.0](LICENSE).
+By contributing you agree your work will be licensed under Apache License 2.0.
 
-Внося вклад, вы соглашаетесь с тем, что ваша работа будет лицензирована под Apache License 2.0.
+---
+
+## Author and Commercial Support
+
+**Author:** Ranas Mukminov ([@ranas-mukminov](https://github.com/ranas-mukminov))
+
+### Professional Services: [run-as-daemon.ru](https://run-as-daemon.ru)
+
+**"Defense by design. Speed by default"**
+
+**Services:**
+
+🛡️ **Security Hardening & Audits**
+- Linux server hardening and compliance (CIS, DISA STIG, PCI DSS, HIPAA)
+- Security automation (Ansible, Terraform)
+- Intrusion detection setup
+
+🏗️ **Infrastructure & Orchestration**
+- Secure infrastructure design
+- Docker, Kubernetes, Nomad deployments
+- CI/CD security integration
+
+🔒 **DevSecOps Services**
+- Security-first workflows
+- Continuous compliance monitoring
+- Incident response planning
+
+⚙️ **Linux Administration**
+- Server configuration
+- Firewall setup (nftables, ufw, iptables)
+- Automated backups and DR
+
+**Contact:**
+- 🌐 [run-as-daemon.ru](https://run-as-daemon.ru)
+- 🐙 [@ranas-mukminov](https://github.com/ranas-mukminov)
+- 💬 Telegram/VK/WhatsApp via website
+
+---
+
+## Support
+
+**Community:**
+- [GitHub Issues](https://github.com/ranas-mukminov/linux-hardening-blueprint-small-business/issues)
+
+**Professional:**
+- Security audits and assessments
+- Custom hardening implementations
+- Managed security operations
+- 24/7 support with SLA
+
+**Contact:** [run-as-daemon.ru](https://run-as-daemon.ru)
 
 ---
 
 **Made with ❤️ for Small Business Security**
-
-**Создано с ❤️ для безопасности малого бизнеса**
 
 **Professional DevOps & Security Services:** [run-as-daemon.ru](https://run-as-daemon.ru)
