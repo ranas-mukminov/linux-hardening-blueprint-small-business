@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ruff check cli
-black --check --diff cli
+black --check cli
 ansible-lint ansible
 yamllint ansible tests .github
 bandit -qr cli
