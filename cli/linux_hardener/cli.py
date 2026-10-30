@@ -67,7 +67,7 @@ def main(
     check: bool = typer.Option(
         False, "--check", help="Run Ansible in check (dry-run) mode"
     ),
-    extra_vars: Path | None = typer.Option(  # noqa: B008 - Typer requires descriptor defaults
+    extra_vars: Path | None = typer.Option(  # noqa: B008
         None,
         "--extra-vars",
         exists=True,
@@ -76,7 +76,7 @@ def main(
         path_type=Path,
         help="YAML file with ansible extra vars",
     ),
-    config_file: Path | None = typer.Option(  # noqa: B008 - Typer requires descriptor defaults
+    config_file: Path | None = typer.Option(  # noqa: B008
         None,
         "--config",
         dir_okay=False,
