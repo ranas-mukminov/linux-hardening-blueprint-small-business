@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Optional
-
 import subprocess
+from pathlib import Path
+
 import typer
 
-from .config_schema import CLIConfig, SUPPORTED_PROFILES, load_config
+from .config_schema import SUPPORTED_PROFILES, CLIConfig, load_config
 from .runner import build_command, run_playbook
 
 app = typer.Typer(
@@ -17,12 +16,12 @@ app = typer.Typer(
 
 
 def _resolve_config(
-    profile: Optional[str],
-    inventory: Optional[str],
-    limit: Optional[str],
+    profile: str | None,
+    inventory: str | None,
+    limit: str | None,
     check: bool,
-    extra_vars: Optional[str],
-    config_file: Optional[str],
+    extra_vars: str | None,
+    config_file: str | None,
 ) -> CLIConfig:
     base = load_config(config_file)
     if profile and profile not in SUPPORTED_PROFILES:
@@ -44,7 +43,7 @@ def _resolve_config(
 
 @app.command(context_settings={"help_option_names": ["-h", "--help"]})
 def main(
-    profile: Optional[str] = typer.Option(
+    profile: str | None = typer.Option(
         None,
         "--profile",
         help="Profile to apply (workstation/server/hardened)",
@@ -53,13 +52,13 @@ def main(
             p for p in SUPPORTED_PROFILES if p.startswith(incomplete)
         ],
     ),
-    inventory: Optional[str] = typer.Option(
+    inventory: str | None = typer.Option(
         None,
         "--inventory",
         "-i",
         help="Inventory path",
     ),
-    limit: Optional[str] = typer.Option(
+    limit: str | None = typer.Option(
         None,
         "--limit",
         "-l",
@@ -68,7 +67,7 @@ def main(
     check: bool = typer.Option(
         False, "--check", help="Run Ansible in check (dry-run) mode"
     ),
-    extra_vars: Optional[Path] = typer.Option(
+    extra_vars: Path | None = typer.Option(  # noqa: B008 - Typer requires descriptor defaults
         None,
         "--extra-vars",
         exists=True,
@@ -77,7 +76,7 @@ def main(
         path_type=Path,
         help="YAML file with ansible extra vars",
     ),
-    config_file: Optional[Path] = typer.Option(
+    config_file: Path | None = typer.Option(  # noqa: B008 - Typer requires descriptor defaults
         None,
         "--config",
         dir_okay=False,
