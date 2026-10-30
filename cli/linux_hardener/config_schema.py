@@ -60,7 +60,7 @@ def load_config(path: str | None) -> CLIConfig:
     with config_path.open("r", encoding="utf-8") as handle:
         payload = yaml.safe_load(handle) or {}
     if not isinstance(payload, dict):
-        raise ValueError("Config root must be a mapping")  # noqa: TRY004 - preserve public config-error contract
+        raise ValueError("Config root must be a mapping")  # noqa: TRY004
 
     _validate_keys(payload)
     return base.merge(payload)
