@@ -4,15 +4,15 @@ from __future__ import annotations
 
 import shlex
 import subprocess
+from collections.abc import Sequence
 from pathlib import Path
-from typing import List, Sequence
 
 from .config_schema import CLIConfig
 
 ANSIBLE_PLAYBOOK_PATH = Path("ansible") / "playbooks" / "site.yml"
 
 
-def build_command(config: CLIConfig, playbook: Path | None = None) -> List[str]:
+def build_command(config: CLIConfig, playbook: Path | None = None) -> list[str]:
     """Create the ansible-playbook invocation for the supplied configuration."""
     target_playbook = playbook or ANSIBLE_PLAYBOOK_PATH
     command = [
