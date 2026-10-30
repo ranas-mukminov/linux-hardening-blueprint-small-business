@@ -4,14 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 import yaml
 
 SUPPORTED_PROFILES = {"workstation", "server", "hardened"}
 
 
-def _validate_keys(payload: Dict[str, Any]) -> None:
+def _validate_keys(payload: dict[str, Any]) -> None:
     allowed = {"profile", "inventory", "limit", "check", "extra_vars"}
     unknown = set(payload) - allowed
     if unknown:
@@ -35,11 +35,11 @@ def _validate_keys(payload: Dict[str, Any]) -> None:
 class CLIConfig:
     profile: str = "server"
     inventory: str = "ansible/inventories/example_inventory.yml"
-    limit: Optional[str] = None
+    limit: str | None = None
     check: bool = False
-    extra_vars: Optional[str] = None
+    extra_vars: str | None = None
 
-    def merge(self, overrides: Dict[str, Any]) -> "CLIConfig":
+    def merge(self, overrides: dict[str, Any]) -> CLIConfig:
         data = {
             **self.__dict__,
             **{k: v for k, v in overrides.items() if v is not None},
@@ -47,7 +47,7 @@ class CLIConfig:
         return CLIConfig(**data)
 
 
-def load_config(path: Optional[str]) -> CLIConfig:
+def load_config(path: str | None) -> CLIConfig:
     """Load YAML config from ``path`` if provided, otherwise return defaults."""
     base = CLIConfig()
     if not path:
@@ -60,7 +60,7 @@ def load_config(path: Optional[str]) -> CLIConfig:
     with config_path.open("r", encoding="utf-8") as handle:
         payload = yaml.safe_load(handle) or {}
     if not isinstance(payload, dict):
-        raise ValueError("Config root must be a mapping")
+        raise ValueError("Config root must be a mapping")  # noqa: TRY004 - preserve public config-error contract
 
     _validate_keys(payload)
     return base.merge(payload)
