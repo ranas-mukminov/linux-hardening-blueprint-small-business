@@ -6,7 +6,7 @@
 # conditional is changed below (to a real boolean test); the rest of the
 # playbook is copied verbatim from the bundled file. Remove this override
 # when upstream fixes the conditional.
-# yamllint disable rule:line-length (vendored upstream lines exceed 80 cols)
+# yamllint disable rule:line-length
 - name: Destroy
   hosts: localhost
   connection: local
