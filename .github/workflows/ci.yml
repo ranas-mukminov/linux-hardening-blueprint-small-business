@@ -33,4 +33,4 @@ jobs:
         run: pytest
       - name: Molecule
         run: molecule test -- --limit "${{ matrix.platform.limit }}"
-        working-directory: tests/integration/molecule/default
+        working-directory: tests/integration
