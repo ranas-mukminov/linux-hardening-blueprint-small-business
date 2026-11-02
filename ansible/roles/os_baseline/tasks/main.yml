@@ -5,6 +5,11 @@
       {{ os_baseline_packages_common +
          os_baseline_package_overrides.get(ansible_facts['os_family'], []) }}
 
+- name: Refresh Debian package cache
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_facts['os_family'] == 'Debian'
+
 - name: Install baseline packages
   ansible.builtin.package:
     name: "{{ os_baseline_packages }}"
