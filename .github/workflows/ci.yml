@@ -33,5 +33,5 @@ jobs:
       - name: Unit tests
         run: pytest
       - name: Molecule
-        run: molecule test -- --limit "${{ matrix.platform.limit }}"
+        run: molecule test -- --limit "${{ matrix.platform.limit }}" -vvv
         working-directory: tests/integration
