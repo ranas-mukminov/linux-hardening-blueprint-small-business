@@ -56,3 +56,13 @@
     name: rsyslog
     enabled: true
     state: started
+
+# Rocky: the logging package installs run after os_baseline and reset
+# /var/log to the distro default, so re-assert the hardened mode here,
+# after the last install, to keep it stuck into the idempotence re-run.
+- name: Re-assert hardened mode on log directory after package installs
+  ansible.builtin.file:
+    path: /var/log
+    owner: root
+    group: root
+    mode: "0750"
