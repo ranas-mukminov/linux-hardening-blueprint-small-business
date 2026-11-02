@@ -14,6 +14,7 @@ os_baseline_package_overrides:
     - unattended-upgrades
   RedHat:
     - dnf-automatic
+    - procps-ng
 
 # RedHat: curl conflicts with preinstalled curl-minimal; htop is EPEL-only.
 os_baseline_package_exclusions:
