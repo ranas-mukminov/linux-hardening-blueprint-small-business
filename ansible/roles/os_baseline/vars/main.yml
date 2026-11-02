@@ -9,6 +9,7 @@ os_baseline_time_services:
 os_baseline_package_overrides:
   Debian:
     - apt-transport-https
+    - procps
   Ubuntu:
     - unattended-upgrades
   RedHat:
