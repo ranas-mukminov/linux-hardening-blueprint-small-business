@@ -1,3 +1,4 @@
+---
 linux_hardener_profile: server
 linux_hardener_profiles:
   workstation:

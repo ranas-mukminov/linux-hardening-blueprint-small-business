@@ -1,4 +1,5 @@
 ---
-- name: reload sysctl
+- name: Reload sysctl
   ansible.builtin.command: sysctl --system
   become: true
+  changed_when: true

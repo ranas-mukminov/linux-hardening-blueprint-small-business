@@ -12,9 +12,14 @@ platforms:
     command: /usr/lib/systemd/systemd
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../ansible/roles
+    ANSIBLE_REMOTE_TMP: /tmp/.ansible/tmp
   playbooks:
     converge: converge.yml
   inventory:
-    host_vars: {}
+    host_vars:
+      rocky9:
+        ansible_become_method: su
 verifier:
   name: ansible

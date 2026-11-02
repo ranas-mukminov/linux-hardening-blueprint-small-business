@@ -1,3 +1,4 @@
+---
 os_baseline_time_services:
   chrony:
     package: chrony
@@ -8,7 +9,15 @@ os_baseline_time_services:
 os_baseline_package_overrides:
   Debian:
     - apt-transport-https
+    - procps
   Ubuntu:
     - unattended-upgrades
   RedHat:
     - dnf-automatic
+    - procps-ng
+
+# RedHat: curl conflicts with preinstalled curl-minimal; htop is EPEL-only.
+os_baseline_package_exclusions:
+  RedHat:
+    - curl
+    - htop

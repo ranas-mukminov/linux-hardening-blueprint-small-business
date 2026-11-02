@@ -1,3 +1,4 @@
+---
 os_baseline_packages_common:
   - vim
   - curl
@@ -5,7 +6,8 @@ os_baseline_packages_common:
   - htop
   - jq
   - git
-os_baseline_time_sync_daemon: "{{ default_time_sync_daemon | default('chrony') }}"
+os_baseline_time_sync_daemon: >-
+  {{ default_time_sync_daemon | default('chrony') }}
 os_baseline_optional_services:
   - avahi-daemon
   - cups

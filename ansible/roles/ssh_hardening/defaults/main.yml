@@ -1,21 +1,22 @@
-ssh_port: 22
-ssh_allow_groups:
+---
+ssh_hardening_ssh_port: 22
+ssh_hardening_ssh_allow_groups:
   - admin
   - wheel
-ssh_login_grace_time: 30
-ssh_max_auth_tries: 3
-ssh_client_alive_interval: 300
-ssh_client_alive_count_max: 2
-ssh_macs:
+ssh_hardening_ssh_login_grace_time: 30
+ssh_hardening_ssh_max_auth_tries: 3
+ssh_hardening_ssh_client_alive_interval: 300
+ssh_hardening_ssh_client_alive_count_max: 2
+ssh_hardening_ssh_macs:
   - hmac-sha2-512-etm@openssh.com
   - hmac-sha2-256-etm@openssh.com
-ssh_kex:
+ssh_hardening_ssh_kex:
   - curve25519-sha256
   - curve25519-sha256@libssh.org
   - diffie-hellman-group16-sha512
-ssh_ciphers:
+ssh_hardening_ssh_ciphers:
   - chacha20-poly1305@openssh.com
   - aes256-gcm@openssh.com
   - aes128-gcm@openssh.com
-ssh_banner_text: |
+ssh_hardening_ssh_banner_text: |
   Authorized access only. Activity is monitored.

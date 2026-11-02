@@ -1,3 +1,4 @@
+---
 name: CI
 
 on:
@@ -23,12 +24,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e ./cli ansible ansible-lint yamllint ruff black bandit pytest pytest-mock molecule[docker] pip-audit
+          pip install -e ./cli ansible ansible-lint yamllint ruff \
+            black bandit pytest pytest-mock molecule[docker] \
+            molecule-docker pip-audit
           ansible-galaxy collection install community.general
       - name: Lint
         run: scripts/lint.sh
       - name: Unit tests
         run: pytest
       - name: Molecule
-        run: molecule test -- --limit "${{ matrix.platform.limit }}"
-        working-directory: tests/integration/molecule/default
+        run: molecule test -p "${{ matrix.platform.limit }}"
+        working-directory: tests/integration

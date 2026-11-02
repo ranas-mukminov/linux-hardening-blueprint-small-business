@@ -1,3 +1,4 @@
-sudo_admin_group: "{{ sudo_default_group | default('admin') }}"
-sudo_require_password: true
-sudo_additional_users: []
+---
+users_sudo_sudo_admin_group: "{{ sudo_default_group | default('admin') }}"
+users_sudo_sudo_require_password: true
+users_sudo_sudo_additional_users: []

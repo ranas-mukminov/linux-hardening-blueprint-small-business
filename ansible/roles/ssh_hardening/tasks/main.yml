@@ -7,7 +7,7 @@
 - name: Deploy SSH banner
   ansible.builtin.copy:
     dest: /etc/ssh/sshd_banner
-    content: "{{ ssh_banner_text | trim }}\n"
+    content: "{{ ssh_hardening_ssh_banner_text | trim }}\n"
     owner: root
     group: root
     mode: "0644"
@@ -20,7 +20,7 @@
     group: root
     mode: "0600"
     backup: true
-  notify: restart sshd
+  notify: Restart sshd
 
 - name: Ensure SSH service enabled
   ansible.builtin.service:
@@ -30,6 +30,6 @@
   loop:
     - sshd
     - ssh
-  register: ssh_service
+  register: ssh_hardening_ssh_service
   failed_when: false
-  changed_when: ssh_service is changed
+  changed_when: ssh_hardening_ssh_service is changed

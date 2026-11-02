@@ -4,7 +4,8 @@
   become: true
   gather_facts: true
   vars:
-    linux_hardener_active_profile: "{{ linux_hardener_profile | default('server') }}"
+    linux_hardener_active_profile: >-
+      {{ linux_hardener_profile | default('server') }}
   pre_tasks:
     - name: Validate requested profile
       ansible.builtin.assert:
@@ -13,7 +14,8 @@
 
     - name: Set selected profile fact
       ansible.builtin.set_fact:
-        linux_hardener_selected_profile: "{{ linux_hardener_profiles[linux_hardener_active_profile] }}"
+        linux_hardener_selected_profile: >-
+          {{ linux_hardener_profiles[linux_hardener_active_profile] }}
 
   roles:
     - role: os_baseline
@@ -21,10 +23,12 @@
         os_baseline_profile: "{{ linux_hardener_selected_profile }}"
     - role: ssh_hardening
       vars:
-        ssh_profile: "{{ linux_hardener_selected_profile }}"
+        ssh_hardening_ssh_profile: "{{ linux_hardener_selected_profile }}"
     - role: firewall
       vars:
-        firewall_profile: "{{ linux_hardener_selected_profile.firewall_profile | default('minimal') }}"
+        firewall_profile: >-
+          {{ linux_hardener_selected_profile.firewall_profile
+          | default('minimal') }}
     - role: logging
     - role: updates
     - role: users_sudo

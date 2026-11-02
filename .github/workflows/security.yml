@@ -1,3 +1,4 @@
+---
 name: Security
 
 on:
@@ -17,7 +18,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pip-audit bandit
-      - name: pip-audit
-        run: pip-audit -r cli/pyproject.toml || true
-      - name: Bandit
+      - name: Audit declared project dependencies
+        # pip-audit accepts a PEP 621 project directory,
+        # not a pyproject.toml as -r requirements.
+        # Keep non-zero exit codes visible: a vulnerability
+        # or scan failure must fail this job.
+        run: pip-audit ./cli
+      - name: Static analysis (Bandit)
         run: bandit -qr cli
