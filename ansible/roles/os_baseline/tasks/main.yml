@@ -43,7 +43,7 @@
     state: present
     reload: true
   loop: "{{ os_baseline_sysctl_settings | dict2items }}"
-  notify: reload sysctl
+  notify: Reload sysctl
 
 - name: Harden sensitive directories
   ansible.builtin.file:
