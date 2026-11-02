@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import subprocess
+import subprocess  # nosec B404: used only for CalledProcessError; execution lives in runner.py
 from pathlib import Path
 
 import typer

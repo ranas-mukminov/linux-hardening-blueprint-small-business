@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import shlex
-import subprocess
+import subprocess  # nosec B404: this module's purpose is running ansible-playbook
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -36,4 +36,6 @@ def run_playbook(command: Sequence[str]) -> None:
     """Execute the ansible-playbook command and stream output."""
     printable = " ".join(shlex.quote(arg) for arg in command)
     print(f"[linux-harden] executing: {printable}")
-    subprocess.run(command, check=True)
+    # argv list, no shell, so no shell injection is possible;
+    # the variable args are the local operator's own CLI/config values.
+    subprocess.run(command, check=True)  # nosec B603
