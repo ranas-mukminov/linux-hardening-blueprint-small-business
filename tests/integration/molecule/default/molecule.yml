@@ -12,6 +12,8 @@ platforms:
     command: /usr/lib/systemd/systemd
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../ansible/roles
   playbooks:
     converge: converge.yml
   inventory:
