@@ -18,6 +18,8 @@ provisioner:
   playbooks:
     converge: converge.yml
   inventory:
-    host_vars: {}
+    host_vars:
+      rocky9:
+        ansible_become_method: su
 verifier:
   name: ansible
