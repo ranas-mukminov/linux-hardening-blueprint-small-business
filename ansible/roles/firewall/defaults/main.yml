@@ -1,3 +1,4 @@
+---
 firewall_backend: auto
 firewall_profile: minimal
 firewall_profiles:

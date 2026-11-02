@@ -12,16 +12,20 @@
 
 - name: Configure time synchronization daemon
   vars:
-    time_service: "{{ os_baseline_time_services[os_baseline_time_sync_daemon] | default({}) }}"
+    time_service: >-
+      {{ os_baseline_time_services[os_baseline_time_sync_daemon]
+      | default({}) }}
   block:
     - name: Ensure time sync package present
       ansible.builtin.package:
-        name: "{{ time_service.package | default(os_baseline_time_sync_daemon) }}"
+        name: >-
+          {{ time_service.package | default(os_baseline_time_sync_daemon) }}
         state: present
 
     - name: Enable and start time sync service
       ansible.builtin.service:
-        name: "{{ time_service.service | default(os_baseline_time_sync_daemon) }}"
+        name: >-
+          {{ time_service.service | default(os_baseline_time_sync_daemon) }}
         enabled: true
         state: started
 
@@ -58,6 +62,6 @@
     enabled: false
     state: stopped
   loop: "{{ os_baseline_optional_services }}"
-  register: optional_services_state
+  register: os_baseline_optional_services_state
   failed_when: false
-  changed_when: optional_services_state is changed
+  changed_when: os_baseline_optional_services_state is changed

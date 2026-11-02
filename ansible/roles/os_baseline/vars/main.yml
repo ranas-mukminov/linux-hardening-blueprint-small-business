@@ -1,3 +1,4 @@
+---
 os_baseline_time_services:
   chrony:
     package: chrony

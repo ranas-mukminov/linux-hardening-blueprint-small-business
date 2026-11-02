@@ -16,14 +16,19 @@
         group: root
         mode: "0644"
         content: |
-          Unattended-Upgrade::Automatic-Reboot "{{ 'true' if updates_reboot_strategy != 'never' else 'false' }}";
+          Unattended-Upgrade::Automatic-Reboot "{{ updates_auto_reboot_flag }}";
           Unattended-Upgrade::Automatic-Reboot-Time "{{ updates_timer_hour }}";
           Unattended-Upgrade::Origins-Pattern {
             "o=Debian,a=stable-security";
-            "o=Ubuntu,a={{ ansible_facts.get('lsb', {}).get('codename', 'jammy') }}-security";
+            "o=Ubuntu,a={{ updates_ubuntu_codename }}-security";
           };
           Unattended-Upgrade::InstallOnShutdown "false";
           Unattended-Upgrade::MinimalSteps "true";
+      vars:
+        updates_auto_reboot_flag: >-
+          {{ 'true' if updates_reboot_strategy != 'never' else 'false' }}
+        updates_ubuntu_codename: >-
+          {{ ansible_facts.get('lsb', {}).get('codename', 'jammy') }}
 
     - name: Enable unattended-upgrades timer
       ansible.builtin.systemd:
