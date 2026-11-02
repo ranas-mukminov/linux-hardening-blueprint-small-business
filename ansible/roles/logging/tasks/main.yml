@@ -25,7 +25,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: restart journald
+  notify: Restart journald
 
 - name: Configure rsyslog forwarding
   ansible.builtin.copy:
@@ -41,7 +41,7 @@
     logging_remote_line: >-
       {{ '*.* @@' + logging_remote_host + ':514'
       if logging_remote_host else '# Remote host disabled' }}
-  notify: restart rsyslog
+  notify: Restart rsyslog
 
 - name: Harden logrotate policy for auth logs
   ansible.builtin.template:

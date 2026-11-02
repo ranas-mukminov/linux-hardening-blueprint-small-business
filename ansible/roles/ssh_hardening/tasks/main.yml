@@ -20,7 +20,7 @@
     group: root
     mode: "0600"
     backup: true
-  notify: restart sshd
+  notify: Restart sshd
 
 - name: Ensure SSH service enabled
   ansible.builtin.service:

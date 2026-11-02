@@ -32,7 +32,7 @@
         owner: root
         group: root
         mode: "0644"
-      notify: reload nftables
+      notify: Reload nftables
 
     - name: Enable nftables service
       ansible.builtin.service:
