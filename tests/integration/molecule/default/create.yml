@@ -70,6 +70,8 @@
           {{ playbook_dir + '/' }}\
           {%- endif -%}"
         dest: "{{ molecule_ephemeral_directory }}"
+        rsync_opts:
+          - "--exclude=molecule.yml"
       loop: "{{ molecule_yml.platforms }}"
       loop_control:
         index_var: i
